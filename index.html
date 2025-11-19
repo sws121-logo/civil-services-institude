@@ -465,6 +465,143 @@
             color: #ddd;
         }
         
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        /* Student Dashboard */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+        
+        .dashboard-sidebar {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        .dashboard-content {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .user-info h3 {
+            margin-bottom: 5px;
+        }
+        
+        .user-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .dashboard-nav {
+            list-style: none;
+        }
+        
+        .dashboard-nav li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        
+        .dashboard-nav li.active {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .dashboard-nav li i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .progress-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .header-container {
@@ -475,7 +612,7 @@
                 margin: 20px 0;
             }
             
-            .lms-container {
+            .lms-container, .dashboard-container {
                 grid-template-columns: 1fr;
             }
             
@@ -504,6 +641,8 @@
             <div class="auth-buttons">
                 <button class="btn btn-login" id="loginBtn">Login</button>
                 <button class="btn btn-register" id="registerBtn">Register</button>
+                <button class="btn btn-register" id="adminLoginBtn" style="display: none;">Admin Panel</button>
+                <button class="btn btn-login" id="logoutBtn" style="display: none;">Logout</button>
             </div>
         </div>
     </header>
@@ -529,109 +668,21 @@
                 <button class="filter-btn" data-filter="free">Free Courses</button>
             </div>
             
-            <div class="courses-grid">
-                <!-- Course 1 -->
-                <div class="course-card" data-category="online">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
-                    <div class="course-content">
-                        <span class="course-category">Online</span>
-                        <h3 class="course-title">UPSC Prelims + Mains Comprehensive Course</h3>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 12 Months</span>
-                            <span><i class="far fa-calendar-alt"></i> Starts: 15th Jan</span>
-                        </div>
-                        <div class="course-price">₹45,000</div>
-                        <button class="btn btn-enroll">Enroll Now</button>
-                    </div>
-                </div>
-                
-                <!-- Course 2 -->
-                <div class="course-card" data-category="offline">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
-                    <div class="course-content">
-                        <span class="course-category">Offline</span>
-                        <h3 class="course-title">State PSC Foundation Course</h3>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 9 Months</span>
-                            <span><i class="far fa-calendar-alt"></i> Starts: 1st Feb</span>
-                        </div>
-                        <div class="course-price">₹32,000</div>
-                        <button class="btn btn-enroll">Enroll Now</button>
-                    </div>
-                </div>
-                
-                <!-- Course 3 -->
-                <div class="course-card" data-category="online free">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
-                    <div class="course-content">
-                        <span class="course-category">Free</span>
-                        <h3 class="course-title">Current Affairs Weekly Update</h3>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> Ongoing</span>
-                            <span><i class="far fa-calendar-alt"></i> Every Monday</span>
-                        </div>
-                        <div class="course-price free">Free</div>
-                        <button class="btn btn-enroll">Enroll Now</button>
-                    </div>
-                </div>
-                
-                <!-- Course 4 -->
-                <div class="course-card" data-category="online">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
-                    <div class="course-content">
-                        <span class="course-category">Online</span>
-                        <h3 class="course-title">Optional Subject: Political Science</h3>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 6 Months</span>
-                            <span><i class="far fa-calendar-alt"></i> Starts: 20th Jan</span>
-                        </div>
-                        <div class="course-price">₹18,000</div>
-                        <button class="btn btn-enroll">Enroll Now</button>
-                    </div>
-                </div>
-                
-                <!-- Course 5 -->
-                <div class="course-card" data-category="offline">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
-                    <div class="course-content">
-                        <span class="course-category">Offline</span>
-                        <h3 class="course-title">Essay Writing & Answer Writing Practice</h3>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 3 Months</span>
-                            <span><i class="far fa-calendar-alt"></i> Starts: 5th Feb</span>
-                        </div>
-                        <div class="course-price">₹12,000</div>
-                        <button class="btn btn-enroll">Enroll Now</button>
-                    </div>
-                </div>
-                
-                <!-- Course 6 -->
-                <div class="course-card" data-category="online free">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
-                    <div class="course-content">
-                        <span class="course-category">Free</span>
-                        <h3 class="course-title">Introduction to Indian Polity</h3>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 2 Weeks</span>
-                            <span><i class="far fa-calendar-alt"></i> Starts: 10th Jan</span>
-                        </div>
-                        <div class="course-price free">Free</div>
-                        <button class="btn btn-enroll">Enroll Now</button>
-                    </div>
-                </div>
+            <div class="courses-grid" id="coursesContainer">
+                <!-- Courses will be dynamically loaded here -->
             </div>
         </div>
     </section>
 
-    <!-- Admin Panel -->
-    <section id="admin">
+    <!-- Admin Panel (Initially Hidden) -->
+    <section id="admin" style="display: none;">
         <div class="container">
             <h2 class="section-title">Admin Control Panel</h2>
             
             <div class="admin-panel">
                 <div class="admin-header">
                     <h3>Website Management</h3>
-                    <button class="btn btn-register">Logout</button>
+                    <button class="btn btn-register" id="adminLogoutBtn">Logout</button>
                 </div>
                 
                 <div class="admin-tabs">
@@ -646,10 +697,10 @@
                     <div id="courses-tab" class="tab-content active">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
                             <h4>All Courses</h4>
-                            <button class="btn btn-register">Add New Course</button>
+                            <button class="btn btn-register" id="addCourseBtn">Add New Course</button>
                         </div>
                         
-                        <table class="table">
+                        <table class="table" id="coursesTable">
                             <thead>
                                 <tr>
                                     <th>Course Name</th>
@@ -661,43 +712,8 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>UPSC Prelims + Mains Comprehensive Course</td>
-                                    <td>Online</td>
-                                    <td>₹45,000</td>
-                                    <td>12 Months</td>
-                                    <td>15th Jan 2024</td>
-                                    <td><span class="badge badge-success">Active</span></td>
-                                    <td>
-                                        <button class="btn" style="padding: 5px 10px; margin-right: 5px;">Edit</button>
-                                        <button class="btn" style="padding: 5px 10px; background-color: var(--danger); color: white;">Delete</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>State PSC Foundation Course</td>
-                                    <td>Offline</td>
-                                    <td>₹32,000</td>
-                                    <td>9 Months</td>
-                                    <td>1st Feb 2024</td>
-                                    <td><span class="badge badge-success">Active</span></td>
-                                    <td>
-                                        <button class="btn" style="padding: 5px 10px; margin-right: 5px;">Edit</button>
-                                        <button class="btn" style="padding: 5px 10px; background-color: var(--danger); color: white;">Delete</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Current Affairs Weekly Update</td>
-                                    <td>Free</td>
-                                    <td>Free</td>
-                                    <td>Ongoing</td>
-                                    <td>Every Monday</td>
-                                    <td><span class="badge badge-success">Active</span></td>
-                                    <td>
-                                        <button class="btn" style="padding: 5px 10px; margin-right: 5px;">Edit</button>
-                                        <button class="btn" style="padding: 5px 10px; background-color: var(--danger); color: white;">Delete</button>
-                                    </td>
-                                </tr>
+                            <tbody id="coursesTableBody">
+                                <!-- Courses will be dynamically loaded here -->
                             </tbody>
                         </table>
                     </div>
@@ -705,7 +721,7 @@
                     <!-- Student Management Tab -->
                     <div id="students-tab" class="tab-content">
                         <h4>Student Management</h4>
-                        <table class="table">
+                        <table class="table" id="studentsTable">
                             <thead>
                                 <tr>
                                     <th>Student ID</th>
@@ -717,40 +733,8 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>ECS001</td>
-                                    <td>Rahul Sharma</td>
-                                    <td>rahul.sharma@example.com</td>
-                                    <td>2</td>
-                                    <td>15th Nov 2023</td>
-                                    <td><span class="badge badge-success">Active</span></td>
-                                    <td>
-                                        <button class="btn" style="padding: 5px 10px;">View</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>ECS002</td>
-                                    <td>Priya Singh</td>
-                                    <td>priya.singh@example.com</td>
-                                    <td>1</td>
-                                    <td>20th Nov 2023</td>
-                                    <td><span class="badge badge-success">Active</span></td>
-                                    <td>
-                                        <button class="btn" style="padding: 5px 10px;">View</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>ECS003</td>
-                                    <td>Amit Kumar</td>
-                                    <td>amit.kumar@example.com</td>
-                                    <td>3</td>
-                                    <td>5th Dec 2023</td>
-                                    <td><span class="badge badge-warning">Pending</span></td>
-                                    <td>
-                                        <button class="btn" style="padding: 5px 10px;">View</button>
-                                    </td>
-                                </tr>
+                            <tbody id="studentsTableBody">
+                                <!-- Students will be dynamically loaded here -->
                             </tbody>
                         </table>
                     </div>
@@ -762,9 +746,6 @@
                             <label for="course-select">Select Course</label>
                             <select id="course-select" class="form-control">
                                 <option value="">-- Select Course --</option>
-                                <option value="1">UPSC Prelims + Mains Comprehensive Course</option>
-                                <option value="2">State PSC Foundation Course</option>
-                                <option value="3">Optional Subject: Political Science</option>
                             </select>
                         </div>
                         
@@ -793,7 +774,7 @@
                             <textarea id="content-description" class="form-control" rows="4" placeholder="Enter content description"></textarea>
                         </div>
                         
-                        <button class="btn btn-register">Upload Content</button>
+                        <button class="btn btn-register" id="uploadContentBtn">Upload Content</button>
                     </div>
                     
                     <!-- Settings Tab -->
@@ -819,78 +800,160 @@
                             <textarea id="institute-address" class="form-control" rows="3">123 Education Street, Knowledge City, India - 110001</textarea>
                         </div>
                         
-                        <button class="btn btn-register">Save Settings</button>
+                        <button class="btn btn-register" id="saveSettingsBtn">Save Settings</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Student LMS -->
-    <section id="lms">
+    <!-- Student Dashboard (Initially Hidden) -->
+    <section id="studentDashboard" style="display: none;">
         <div class="container">
-            <h2 class="section-title">Student Learning Management System</h2>
+            <h2 class="section-title">Student Dashboard</h2>
+            
+            <div class="dashboard-container">
+                <div class="dashboard-sidebar">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-info">
+                            <h3 id="studentName">Student Name</h3>
+                            <p id="studentEmail">student@example.com</p>
+                        </div>
+                    </div>
+                    
+                    <ul class="dashboard-nav">
+                        <li class="active" data-tab="my-courses"><i class="fas fa-book"></i> My Courses</li>
+                        <li data-tab="progress"><i class="fas fa-chart-line"></i> Progress</li>
+                        <li data-tab="resources"><i class="fas fa-file-alt"></i> Resources</li>
+                        <li data-tab="profile"><i class="fas fa-user-cog"></i> Profile</li>
+                    </ul>
+                </div>
+                
+                <div class="dashboard-content">
+                    <!-- My Courses Tab -->
+                    <div id="my-courses-tab" class="tab-content active">
+                        <h3>My Enrolled Courses</h3>
+                        <div class="courses-grid" id="enrolledCoursesContainer">
+                            <!-- Enrolled courses will be dynamically loaded here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Tab -->
+                    <div id="progress-tab" class="tab-content">
+                        <h3>My Learning Progress</h3>
+                        <div class="progress-card">
+                            <div class="progress-title">
+                                <span>UPSC Prelims + Mains Comprehensive Course</span>
+                                <span>65%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-card">
+                            <div class="progress-title">
+                                <span>Current Affairs Weekly Update</span>
+                                <span>40%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resources Tab -->
+                    <div id="resources-tab" class="tab-content">
+                        <h3>Study Resources</h3>
+                        <ul style="list-style: none; margin-top: 20px;">
+                            <li style="padding: 15px 0; border-bottom: 1px solid #eee;">
+                                <i class="far fa-file-pdf" style="color: var(--danger); margin-right: 10px;"></i>
+                                <a href="#" style="text-decoration: none; color: var(--primary); font-weight: 500;">UPSC Syllabus 2024</a>
+                            </li>
+                            <li style="padding: 15px 0; border-bottom: 1px solid #eee;">
+                                <i class="far fa-file-alt" style="color: var(--info); margin-right: 10px;"></i>
+                                <a href="#" style="text-decoration: none; color: var(--primary); font-weight: 500;">Previous Year Question Papers</a>
+                            </li>
+                            <li style="padding: 15px 0; border-bottom: 1px solid #eee;">
+                                <i class="far fa-file-video" style="color: var(--success); margin-right: 10px;"></i>
+                                <a href="#" style="text-decoration: none; color: var(--primary); font-weight: 500;">Strategy Videos by Toppers</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Profile Tab -->
+                    <div id="profile-tab" class="tab-content">
+                        <h3>My Profile</h3>
+                        <div class="form-group">
+                            <label for="profile-name">Full Name</label>
+                            <input type="text" id="profile-name" class="form-control" value="Student Name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profile-email">Email Address</label>
+                            <input type="email" id="profile-email" class="form-control" value="student@example.com" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profile-phone">Phone Number</label>
+                            <input type="text" id="profile-phone" class="form-control" value="+91 9876543210">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profile-password">Change Password</label>
+                            <input type="password" id="profile-password" class="form-control" placeholder="Enter new password">
+                        </div>
+                        
+                        <button class="btn btn-register">Update Profile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student LMS (Initially Hidden) -->
+    <section id="studentLMS" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Learning Management System</h2>
             
             <div class="lms-container">
                 <div class="lms-sidebar">
-                    <h4>My Courses</h4>
-                    <ul class="lms-course-list">
-                        <li class="active">UPSC Prelims + Mains Comprehensive Course</li>
-                        <li>Current Affairs Weekly Update</li>
-                        <li>Introduction to Indian Polity</li>
+                    <h4 id="lmsCourseTitle">Course Title</h4>
+                    <ul class="lms-course-list" id="courseModulesList">
+                        <!-- Course modules will be dynamically loaded here -->
                     </ul>
                     
                     <h4 style="margin-top: 30px;">Course Progress</h4>
                     <div style="margin-top: 15px;">
                         <div style="display: flex; justify-content: space-between;">
-                            <span>UPSC Course</span>
-                            <span>65%</span>
+                            <span id="progressCourseName">Current Course</span>
+                            <span id="progressPercentage">0%</span>
                         </div>
                         <div style="height: 8px; background-color: #eee; border-radius: 4px; margin-top: 5px;">
-                            <div style="height: 100%; width: 65%; background-color: var(--success); border-radius: 4px;"></div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 15px;">
-                        <div style="display: flex; justify-content: space-between;">
-                            <span>Indian Polity</span>
-                            <span>30%</span>
-                        </div>
-                        <div style="height: 8px; background-color: #eee; border-radius: 4px; margin-top: 5px;">
-                            <div style="height: 100%; width: 30%; background-color: var(--warning); border-radius: 4px;"></div>
+                            <div id="progressBar" style="height: 100%; width: 0%; background-color: var(--success); border-radius: 4px;"></div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="lms-content">
-                    <h3>UPSC Prelims + Mains Comprehensive Course</h3>
+                    <h3 id="currentModuleTitle">Module Title</h3>
                     
-                    <div class="video-player">
+                    <div class="video-player" id="videoPlayer">
                         <i class="fas fa-play-circle" style="font-size: 60px; color: var(--secondary);"></i>
                     </div>
                     
-                    <h4 class="video-title">Indian Constitution - Fundamental Rights</h4>
-                    <p class="video-description">
-                        In this lecture, we will cover the Fundamental Rights enshrined in the Indian Constitution. 
-                        We'll discuss Articles 12 to 35, the significance of each right, important Supreme Court 
-                        judgments related to fundamental rights, and how these rights have evolved over time.
+                    <h4 class="video-title" id="videoTitle">Video Title</h4>
+                    <p class="video-description" id="videoDescription">
+                        Video description will appear here.
                     </p>
                     
                     <div style="margin-top: 30px;">
                         <h4>Course Materials</h4>
-                        <ul style="list-style: none; margin-top: 15px;">
-                            <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
-                                <i class="far fa-file-pdf" style="color: var(--danger); margin-right: 10px;"></i>
-                                <a href="#" style="text-decoration: none; color: var(--primary);">Fundamental Rights - Study Material.pdf</a>
-                            </li>
-                            <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
-                                <i class="far fa-file-alt" style="color: var(--info); margin-right: 10px;"></i>
-                                <a href="#" style="text-decoration: none; color: var(--primary);">Practice Questions - Fundamental Rights</a>
-                            </li>
-                            <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
-                                <i class="far fa-file-video" style="color: var(--success); margin-right: 10px;"></i>
-                                <a href="#" style="text-decoration: none; color: var(--primary);">Previous Year Questions Discussion</a>
-                            </li>
+                        <ul id="courseMaterials" style="list-style: none; margin-top: 15px;">
+                            <!-- Course materials will be dynamically loaded here -->
                         </ul>
                     </div>
                 </div>
@@ -944,8 +1007,765 @@
         </div>
     </footer>
 
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Login to Your Account</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="login-email">Email Address</label>
+                <input type="email" id="login-email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" class="form-control" placeholder="Enter your password">
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="login-admin"> Login as Admin
+                </label>
+            </div>
+            <button class="btn btn-register" id="submitLogin" style="width: 100%;">Login</button>
+            <p style="text-align: center; margin-top: 15px;">
+                Don't have an account? <a href="#" id="showRegister" style="color: var(--primary);">Register here</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Account</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="register-name">Full Name</label>
+                <input type="text" id="register-name" class="form-control" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="register-email">Email Address</label>
+                <input type="email" id="register-email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" class="form-control" placeholder="Create a password">
+            </div>
+            <div class="form-group">
+                <label for="register-confirm">Confirm Password</label>
+                <input type="password" id="register-confirm" class="form-control" placeholder="Confirm your password">
+            </div>
+            <button class="btn btn-register" id="submitRegister" style="width: 100%;">Register</button>
+            <p style="text-align: center; margin-top: 15px;">
+                Already have an account? <a href="#" id="showLogin" style="color: var(--primary);">Login here</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Add Course Modal -->
+    <div class="modal" id="addCourseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Course</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="course-name">Course Name</label>
+                <input type="text" id="course-name" class="form-control" placeholder="Enter course name">
+            </div>
+            <div class="form-group">
+                <label for="course-description">Course Description</label>
+                <textarea id="course-description" class="form-control" rows="3" placeholder="Enter course description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="course-type">Course Type</label>
+                <select id="course-type" class="form-control">
+                    <option value="online">Online</option>
+                    <option value="offline">Offline</option>
+                    <option value="free">Free</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="course-price">Course Price (₹)</label>
+                <input type="number" id="course-price" class="form-control" placeholder="Enter course price">
+            </div>
+            <div class="form-group">
+                <label for="course-duration">Duration</label>
+                <input type="text" id="course-duration" class="form-control" placeholder="e.g., 12 Months">
+            </div>
+            <div class="form-group">
+                <label for="course-start">Start Date</label>
+                <input type="date" id="course-start" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="course-image">Course Image URL</label>
+                <input type="text" id="course-image" class="form-control" placeholder="Enter image URL">
+            </div>
+            <button class="btn btn-register" id="saveCourseBtn" style="width: 100%;">Save Course</button>
+        </div>
+    </div>
+
     <script>
-        // Course Filtering
+        // Data Storage (In a real application, this would be a database)
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let courses = JSON.parse(localStorage.getItem('courses')) || [];
+        let enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let isAdmin = localStorage.getItem('isAdmin') === 'true' || false;
+        
+        // Default admin user
+        if (!users.find(user => user.email === 'admin@elitecivils.com')) {
+            users.push({
+                id: 1,
+                name: 'Administrator',
+                email: 'admin@elitecivils.com',
+                password: 'admin123',
+                role: 'admin',
+                joinDate: new Date().toISOString().split('T')[0]
+            });
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+        
+        // Default courses
+        if (courses.length === 0) {
+            courses = [
+                {
+                    id: 1,
+                    name: 'UPSC Prelims + Mains Comprehensive Course',
+                    description: 'Complete preparation for UPSC Civil Services Examination covering all subjects for Prelims and Mains.',
+                    type: 'online',
+                    price: 45000,
+                    duration: '12 Months',
+                    startDate: '2024-01-15',
+                    image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+                    status: 'active'
+                },
+                {
+                    id: 2,
+                    name: 'State PSC Foundation Course',
+                    description: 'Comprehensive course for various State Public Service Commission examinations.',
+                    type: 'offline',
+                    price: 32000,
+                    duration: '9 Months',
+                    startDate: '2024-02-01',
+                    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+                    status: 'active'
+                },
+                {
+                    id: 3,
+                    name: 'Current Affairs Weekly Update',
+                    description: 'Weekly updates on current affairs important for civil services examinations.',
+                    type: 'free',
+                    price: 0,
+                    duration: 'Ongoing',
+                    startDate: '2024-01-08',
+                    image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+                    status: 'active'
+                },
+                {
+                    id: 4,
+                    name: 'Optional Subject: Political Science',
+                    description: 'In-depth coverage of Political Science as an optional subject for UPSC Mains.',
+                    type: 'online',
+                    price: 18000,
+                    duration: '6 Months',
+                    startDate: '2024-01-20',
+                    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+                    status: 'active'
+                },
+                {
+                    id: 5,
+                    name: 'Essay Writing & Answer Writing Practice',
+                    description: 'Focused practice for essay writing and answer writing for UPSC Mains examination.',
+                    type: 'offline',
+                    price: 12000,
+                    duration: '3 Months',
+                    startDate: '2024-02-05',
+                    image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+                    status: 'active'
+                },
+                {
+                    id: 6,
+                    name: 'Introduction to Indian Polity',
+                    description: 'Basic to advanced concepts of Indian Polity and Constitution for civil services exams.',
+                    type: 'free',
+                    price: 0,
+                    duration: '2 Weeks',
+                    startDate: '2024-01-10',
+                    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+                    status: 'active'
+                }
+            ];
+            localStorage.setItem('courses', JSON.stringify(courses));
+        }
+        
+        // DOM Elements
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const adminLoginBtn = document.getElementById('adminLoginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const addCourseModal = document.getElementById('addCourseModal');
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+        const showRegister = document.getElementById('showRegister');
+        const showLogin = document.getElementById('showLogin');
+        const submitLogin = document.getElementById('submitLogin');
+        const submitRegister = document.getElementById('submitRegister');
+        const addCourseBtn = document.getElementById('addCourseBtn');
+        const saveCourseBtn = document.getElementById('saveCourseBtn');
+        const coursesContainer = document.getElementById('coursesContainer');
+        const coursesTableBody = document.getElementById('coursesTableBody');
+        const studentsTableBody = document.getElementById('studentsTableBody');
+        const enrolledCoursesContainer = document.getElementById('enrolledCoursesContainer');
+        const adminSection = document.getElementById('admin');
+        const studentDashboard = document.getElementById('studentDashboard');
+        const studentLMS = document.getElementById('studentLMS');
+        const studentName = document.getElementById('studentName');
+        const studentEmail = document.getElementById('studentEmail');
+        
+        // Initialize the application
+        function init() {
+            renderCourses();
+            updateUI();
+            
+            if (isAdmin && currentUser) {
+                showAdminPanel();
+                renderAdminCourses();
+                renderAdminStudents();
+            } else if (currentUser) {
+                showStudentDashboard();
+                renderEnrolledCourses();
+            }
+        }
+        
+        // Render courses on the main page
+        function renderCourses() {
+            coursesContainer.innerHTML = '';
+            
+            courses.filter(course => course.status === 'active').forEach(course => {
+                const courseCard = document.createElement('div');
+                courseCard.className = 'course-card';
+                courseCard.setAttribute('data-category', course.type);
+                
+                const priceDisplay = course.price === 0 ? 
+                    `<div class="course-price free">Free</div>` : 
+                    `<div class="course-price">₹${course.price.toLocaleString()}</div>`;
+                
+                courseCard.innerHTML = `
+                    <div class="course-img" style="background-image: url('${course.image}');"></div>
+                    <div class="course-content">
+                        <span class="course-category">${course.type.charAt(0).toUpperCase() + course.type.slice(1)}</span>
+                        <h3 class="course-title">${course.name}</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> ${course.duration}</span>
+                            <span><i class="far fa-calendar-alt"></i> Starts: ${formatDate(course.startDate)}</span>
+                        </div>
+                        ${priceDisplay}
+                        <button class="btn btn-enroll" data-course-id="${course.id}">Enroll Now</button>
+                    </div>
+                `;
+                
+                coursesContainer.appendChild(courseCard);
+            });
+            
+            // Add event listeners to enroll buttons
+            document.querySelectorAll('.btn-enroll').forEach(button => {
+                button.addEventListener('click', function() {
+                    const courseId = parseInt(this.getAttribute('data-course-id'));
+                    enrollInCourse(courseId);
+                });
+            });
+        }
+        
+        // Render courses in admin panel
+        function renderAdminCourses() {
+            coursesTableBody.innerHTML = '';
+            
+            courses.forEach(course => {
+                const statusClass = course.status === 'active' ? 'badge-success' : 'badge-danger';
+                const statusText = course.status === 'active' ? 'Active' : 'Inactive';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${course.name}</td>
+                    <td>${course.type.charAt(0).toUpperCase() + course.type.slice(1)}</td>
+                    <td>${course.price === 0 ? 'Free' : '₹' + course.price.toLocaleString()}</td>
+                    <td>${course.duration}</td>
+                    <td>${formatDate(course.startDate)}</td>
+                    <td><span class="badge ${statusClass}">${statusText}</span></td>
+                    <td>
+                        <button class="btn edit-course" data-course-id="${course.id}" style="padding: 5px 10px; margin-right: 5px;">Edit</button>
+                        <button class="btn delete-course" data-course-id="${course.id}" style="padding: 5px 10px; background-color: var(--danger); color: white;">Delete</button>
+                    </td>
+                `;
+                
+                coursesTableBody.appendChild(row);
+            });
+            
+            // Add event listeners to edit and delete buttons
+            document.querySelectorAll('.edit-course').forEach(button => {
+                button.addEventListener('click', function() {
+                    const courseId = parseInt(this.getAttribute('data-course-id'));
+                    editCourse(courseId);
+                });
+            });
+            
+            document.querySelectorAll('.delete-course').forEach(button => {
+                button.addEventListener('click', function() {
+                    const courseId = parseInt(this.getAttribute('data-course-id'));
+                    deleteCourse(courseId);
+                });
+            });
+        }
+        
+        // Render students in admin panel
+        function renderAdminStudents() {
+            studentsTableBody.innerHTML = '';
+            
+            const students = users.filter(user => user.role !== 'admin');
+            
+            students.forEach((student, index) => {
+                const studentEnrollments = enrolledCourses.filter(enrollment => enrollment.userId === student.id);
+                const statusClass = studentEnrollments.length > 0 ? 'badge-success' : 'badge-warning';
+                const statusText = studentEnrollments.length > 0 ? 'Active' : 'Pending';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>ECS${(index + 1).toString().padStart(3, '0')}</td>
+                    <td>${student.name}</td>
+                    <td>${student.email}</td>
+                    <td>${studentEnrollments.length}</td>
+                    <td>${formatDate(student.joinDate)}</td>
+                    <td><span class="badge ${statusClass}">${statusText}</span></td>
+                    <td>
+                        <button class="btn view-student" data-user-id="${student.id}" style="padding: 5px 10px;">View</button>
+                    </td>
+                `;
+                
+                studentsTableBody.appendChild(row);
+            });
+        }
+        
+        // Render enrolled courses in student dashboard
+        function renderEnrolledCourses() {
+            enrolledCoursesContainer.innerHTML = '';
+            
+            if (!currentUser) return;
+            
+            const userEnrollments = enrolledCourses.filter(enrollment => enrollment.userId === currentUser.id);
+            
+            if (userEnrollments.length === 0) {
+                enrolledCoursesContainer.innerHTML = '<p>You have not enrolled in any courses yet.</p>';
+                return;
+            }
+            
+            userEnrollments.forEach(enrollment => {
+                const course = courses.find(c => c.id === enrollment.courseId);
+                if (!course) return;
+                
+                const courseCard = document.createElement('div');
+                courseCard.className = 'course-card';
+                
+                const priceDisplay = course.price === 0 ? 
+                    `<div class="course-price free">Free</div>` : 
+                    `<div class="course-price">₹${course.price.toLocaleString()}</div>`;
+                
+                courseCard.innerHTML = `
+                    <div class="course-img" style="background-image: url('${course.image}');"></div>
+                    <div class="course-content">
+                        <span class="course-category">${course.type.charAt(0).toUpperCase() + course.type.slice(1)}</span>
+                        <h3 class="course-title">${course.name}</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> ${course.duration}</span>
+                            <span><i class="far fa-calendar-alt"></i> Started: ${formatDate(enrollment.enrollmentDate)}</span>
+                        </div>
+                        ${priceDisplay}
+                        <button class="btn btn-enroll" data-course-id="${course.id}">Access Course</button>
+                    </div>
+                `;
+                
+                enrolledCoursesContainer.appendChild(courseCard);
+            });
+            
+            // Add event listeners to access course buttons
+            document.querySelectorAll('.btn-enroll').forEach(button => {
+                button.addEventListener('click', function() {
+                    const courseId = parseInt(this.getAttribute('data-course-id'));
+                    accessCourse(courseId);
+                });
+            });
+        }
+        
+        // Format date for display
+        function formatDate(dateString) {
+            const options = { day: 'numeric', month: 'short', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+        
+        // Update UI based on login status
+        function updateUI() {
+            if (currentUser) {
+                loginBtn.style.display = 'none';
+                registerBtn.style.display = 'none';
+                logoutBtn.style.display = 'block';
+                
+                if (isAdmin) {
+                    adminLoginBtn.style.display = 'block';
+                } else {
+                    adminLoginBtn.style.display = 'none';
+                }
+            } else {
+                loginBtn.style.display = 'block';
+                registerBtn.style.display = 'block';
+                logoutBtn.style.display = 'none';
+                adminLoginBtn.style.display = 'none';
+            }
+        }
+        
+        // Show admin panel
+        function showAdminPanel() {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            adminSection.style.display = 'block';
+        }
+        
+        // Show student dashboard
+        function showStudentDashboard() {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            studentDashboard.style.display = 'block';
+            
+            if (currentUser) {
+                studentName.textContent = currentUser.name;
+                studentEmail.textContent = currentUser.email;
+            }
+        }
+        
+        // Show student LMS
+        function showStudentLMS() {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            studentLMS.style.display = 'block';
+        }
+        
+        // Show main page
+        function showMainPage() {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'block';
+            });
+            adminSection.style.display = 'none';
+            studentDashboard.style.display = 'none';
+            studentLMS.style.display = 'none';
+        }
+        
+        // Enroll in a course
+        function enrollInCourse(courseId) {
+            if (!currentUser) {
+                alert('Please login to enroll in courses');
+                loginModal.style.display = 'flex';
+                return;
+            }
+            
+            // Check if already enrolled
+            const alreadyEnrolled = enrolledCourses.some(
+                enrollment => enrollment.userId === currentUser.id && enrollment.courseId === courseId
+            );
+            
+            if (alreadyEnrolled) {
+                alert('You are already enrolled in this course');
+                return;
+            }
+            
+            // Add enrollment
+            enrolledCourses.push({
+                id: enrolledCourses.length + 1,
+                userId: currentUser.id,
+                courseId: courseId,
+                enrollmentDate: new Date().toISOString().split('T')[0],
+                progress: 0
+            });
+            
+            localStorage.setItem('enrolledCourses', JSON.stringify(enrolledCourses));
+            alert('Successfully enrolled in the course!');
+            
+            if (isAdmin) {
+                renderAdminStudents();
+            } else {
+                renderEnrolledCourses();
+            }
+        }
+        
+        // Access a course in LMS
+        function accessCourse(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            // In a real application, you would load course content here
+            document.getElementById('lmsCourseTitle').textContent = course.name;
+            document.getElementById('progressCourseName').textContent = course.name;
+            
+            // Set progress (in a real app, this would come from user data)
+            const enrollment = enrolledCourses.find(
+                e => e.userId === currentUser.id && e.courseId === courseId
+            );
+            const progress = enrollment ? enrollment.progress : 0;
+            
+            document.getElementById('progressPercentage').textContent = `${progress}%`;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            
+            // Set up course modules (simulated data)
+            const modules = [
+                { id: 1, title: 'Introduction to the Course', duration: '15 min', type: 'video' },
+                { id: 2, title: 'Fundamental Concepts', duration: '45 min', type: 'video' },
+                { id: 3, title: 'Practice Questions', duration: '30 min', type: 'quiz' },
+                { id: 4, title: 'Advanced Topics', duration: '60 min', type: 'video' }
+            ];
+            
+            const modulesList = document.getElementById('courseModulesList');
+            modulesList.innerHTML = '';
+            
+            modules.forEach(module => {
+                const li = document.createElement('li');
+                li.textContent = `${module.title} (${module.duration})`;
+                li.setAttribute('data-module-id', module.id);
+                modulesList.appendChild(li);
+            });
+            
+            // Set up course materials (simulated data)
+            const materials = [
+                { name: 'Course Syllabus PDF', type: 'pdf' },
+                { name: 'Additional Reading Material', type: 'pdf' },
+                { name: 'Practice Test Questions', type: 'quiz' }
+            ];
+            
+            const materialsList = document.getElementById('courseMaterials');
+            materialsList.innerHTML = '';
+            
+            materials.forEach(material => {
+                const li = document.createElement('li');
+                li.style.padding = '10px 0';
+                li.style.borderBottom = '1px solid #eee';
+                
+                let iconClass = 'far fa-file-pdf';
+                let iconColor = 'var(--danger)';
+                
+                if (material.type === 'quiz') {
+                    iconClass = 'far fa-file-alt';
+                    iconColor = 'var(--info)';
+                }
+                
+                li.innerHTML = `
+                    <i class="${iconClass}" style="color: ${iconColor}; margin-right: 10px;"></i>
+                    <a href="#" style="text-decoration: none; color: var(--primary);">${material.name}</a>
+                `;
+                
+                materialsList.appendChild(li);
+            });
+            
+            showStudentLMS();
+        }
+        
+        // Add a new course
+        function addNewCourse() {
+            const name = document.getElementById('course-name').value;
+            const description = document.getElementById('course-description').value;
+            const type = document.getElementById('course-type').value;
+            const price = parseInt(document.getElementById('course-price').value) || 0;
+            const duration = document.getElementById('course-duration').value;
+            const startDate = document.getElementById('course-start').value;
+            const image = document.getElementById('course-image').value;
+            
+            if (!name || !description || !duration || !startDate) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            const newCourse = {
+                id: courses.length + 1,
+                name,
+                description,
+                type,
+                price,
+                duration,
+                startDate,
+                image: image || 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+                status: 'active'
+            };
+            
+            courses.push(newCourse);
+            localStorage.setItem('courses', JSON.stringify(courses));
+            
+            renderCourses();
+            renderAdminCourses();
+            
+            addCourseModal.style.display = 'none';
+            alert('Course added successfully!');
+        }
+        
+        // Edit a course
+        function editCourse(courseId) {
+            // In a real application, you would populate a form with course data
+            alert('Edit course functionality would be implemented here');
+        }
+        
+        // Delete a course
+        function deleteCourse(courseId) {
+            if (confirm('Are you sure you want to delete this course?')) {
+                const courseIndex = courses.findIndex(c => c.id === courseId);
+                if (courseIndex !== -1) {
+                    courses.splice(courseIndex, 1);
+                    localStorage.setItem('courses', JSON.stringify(courses));
+                    
+                    renderCourses();
+                    renderAdminCourses();
+                    alert('Course deleted successfully!');
+                }
+            }
+        }
+        
+        // Event Listeners
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+        });
+        
+        registerBtn.addEventListener('click', () => {
+            registerModal.style.display = 'flex';
+        });
+        
+        adminLoginBtn.addEventListener('click', () => {
+            if (isAdmin) {
+                showAdminPanel();
+            }
+        });
+        
+        logoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            isAdmin = false;
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('isAdmin');
+            updateUI();
+            showMainPage();
+            alert('Logged out successfully!');
+        });
+        
+        adminLogoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            isAdmin = false;
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('isAdmin');
+            updateUI();
+            showMainPage();
+            alert('Logged out successfully!');
+        });
+        
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'none';
+                addCourseModal.style.display = 'none';
+            });
+        });
+        
+        showRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'none';
+            registerModal.style.display = 'flex';
+        });
+        
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.style.display = 'none';
+            loginModal.style.display = 'flex';
+        });
+        
+        submitLogin.addEventListener('click', () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const isAdminLogin = document.getElementById('login-admin').checked;
+            
+            if (!email || !password) {
+                alert('Please enter both email and password');
+                return;
+            }
+            
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                isAdmin = isAdminLogin && user.role === 'admin';
+                
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                localStorage.setItem('isAdmin', isAdmin);
+                
+                updateUI();
+                loginModal.style.display = 'none';
+                
+                if (isAdmin) {
+                    showAdminPanel();
+                    renderAdminCourses();
+                    renderAdminStudents();
+                } else {
+                    showStudentDashboard();
+                    renderEnrolledCourses();
+                }
+                
+                alert('Login successful!');
+            } else {
+                alert('Invalid email or password');
+            }
+        });
+        
+        submitRegister.addEventListener('click', () => {
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm').value;
+            
+            if (!name || !email || !password || !confirmPassword) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            if (users.find(u => u.email === email)) {
+                alert('User with this email already exists');
+                return;
+            }
+            
+            const newUser = {
+                id: users.length + 1,
+                name,
+                email,
+                password,
+                role: 'student',
+                joinDate: new Date().toISOString().split('T')[0]
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            registerModal.style.display = 'none';
+            alert('Registration successful! Please login with your credentials.');
+        });
+        
+        addCourseBtn.addEventListener('click', () => {
+            addCourseModal.style.display = 'flex';
+        });
+        
+        saveCourseBtn.addEventListener('click', addNewCourse);
+        
+        // Course filtering
         document.querySelectorAll('.filter-btn').forEach(button => {
             button.addEventListener('click', () => {
                 // Remove active class from all buttons
@@ -969,7 +1789,7 @@
             });
         });
         
-        // Admin Tabs
+        // Admin tabs
         document.querySelectorAll('.admin-tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 // Remove active class from all tabs
@@ -991,34 +1811,30 @@
             });
         });
         
-        // LMS Course Selection
-        document.querySelectorAll('.lms-course-list li').forEach(item => {
+        // Student dashboard tabs
+        document.querySelectorAll('.dashboard-nav li').forEach(item => {
             item.addEventListener('click', () => {
                 // Remove active class from all items
-                document.querySelectorAll('.lms-course-list li').forEach(li => {
+                document.querySelectorAll('.dashboard-nav li').forEach(li => {
                     li.classList.remove('active');
                 });
                 
                 // Add active class to clicked item
                 item.classList.add('active');
+                
+                const tabId = item.getAttribute('data-tab');
+                const tabContents = document.querySelectorAll('.dashboard-content .tab-content');
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                document.getElementById(`${tabId}-tab`).classList.add('active');
             });
         });
         
-        // Login/Register buttons
-        document.getElementById('loginBtn').addEventListener('click', () => {
-            alert('Login functionality would be implemented here');
-        });
-        
-        document.getElementById('registerBtn').addEventListener('click', () => {
-            alert('Registration functionality would be implemented here');
-        });
-        
-        // Enroll buttons
-        document.querySelectorAll('.btn-enroll').forEach(button => {
-            button.addEventListener('click', () => {
-                alert('Course enrollment functionality would be implemented here');
-            });
-        });
+        // Initialize the application
+        init();
     </script>
 </body>
 </html>
