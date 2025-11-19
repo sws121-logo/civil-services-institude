@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Civil Services Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a3a5f;
+            --secondary: #d4af37;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            margin-left: 10px;
+        }
+        
+        .logo i {
+            font-size: 28px;
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            margin-right: 10px;
+        }
+        
+        .btn-register {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 58, 95, 0.8), rgba(26, 58, 95, 0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn-hero {
+            background-color: var(--secondary);
+            color: var(--primary);
+            padding: 12px 30px;
+            font-size: 18px;
+        }
+        
+        /* Courses Section */
+        .section-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary);
+            margin: 10px auto;
+        }
+        
+        .courses-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 8px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .course-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .course-img {
+            height: 180px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .course-content {
+            padding: 20px;
+        }
+        
+        .course-category {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .course-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .course-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .free {
+            color: var(--success);
+        }
+        
+        .btn-enroll {
+            background-color: var(--primary);
+            color: white;
+            width: 100%;
+            padding: 10px;
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .admin-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+        
+        .admin-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .admin-tab.active {
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .admin-content {
+            min-height: 400px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .badge-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .badge-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .badge-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* Student LMS */
+        .lms-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+        
+        .lms-sidebar {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        .lms-content {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        .lms-course-list {
+            list-style: none;
+        }
+        
+        .lms-course-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        
+        .lms-course-list li.active {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .video-player {
+            background-color: #000;
+            height: 400px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .video-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        .video-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #ddd;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin: 20px 0;
+            }
+            
+            .lms-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Elite Civil Services Academy</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-login" id="loginBtn">Login</button>
+                <button class="btn btn-register" id="registerBtn">Register</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Your Pathway to Civil Services Excellence</h2>
+            <p>Comprehensive coaching for UPSC, State PSC, and other civil services examinations with expert faculty, updated study material, and personalized guidance.</p>
+            <button class="btn btn-hero">Explore Our Courses</button>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses">
+        <div class="container">
+            <h2 class="section-title">Our Courses</h2>
+            
+            <div class="courses-filter">
+                <button class="filter-btn active" data-filter="all">All Courses</button>
+                <button class="filter-btn" data-filter="online">Online</button>
+                <button class="filter-btn" data-filter="offline">Offline</button>
+                <button class="filter-btn" data-filter="free">Free Courses</button>
+            </div>
+            
+            <div class="courses-grid">
+                <!-- Course 1 -->
+                <div class="course-card" data-category="online">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="course-content">
+                        <span class="course-category">Online</span>
+                        <h3 class="course-title">UPSC Prelims + Mains Comprehensive Course</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 12 Months</span>
+                            <span><i class="far fa-calendar-alt"></i> Starts: 15th Jan</span>
+                        </div>
+                        <div class="course-price">₹45,000</div>
+                        <button class="btn btn-enroll">Enroll Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 2 -->
+                <div class="course-card" data-category="offline">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="course-content">
+                        <span class="course-category">Offline</span>
+                        <h3 class="course-title">State PSC Foundation Course</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 9 Months</span>
+                            <span><i class="far fa-calendar-alt"></i> Starts: 1st Feb</span>
+                        </div>
+                        <div class="course-price">₹32,000</div>
+                        <button class="btn btn-enroll">Enroll Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 3 -->
+                <div class="course-card" data-category="online free">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="course-content">
+                        <span class="course-category">Free</span>
+                        <h3 class="course-title">Current Affairs Weekly Update</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> Ongoing</span>
+                            <span><i class="far fa-calendar-alt"></i> Every Monday</span>
+                        </div>
+                        <div class="course-price free">Free</div>
+                        <button class="btn btn-enroll">Enroll Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 4 -->
+                <div class="course-card" data-category="online">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="course-content">
+                        <span class="course-category">Online</span>
+                        <h3 class="course-title">Optional Subject: Political Science</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 6 Months</span>
+                            <span><i class="far fa-calendar-alt"></i> Starts: 20th Jan</span>
+                        </div>
+                        <div class="course-price">₹18,000</div>
+                        <button class="btn btn-enroll">Enroll Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 5 -->
+                <div class="course-card" data-category="offline">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="course-content">
+                        <span class="course-category">Offline</span>
+                        <h3 class="course-title">Essay Writing & Answer Writing Practice</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 3 Months</span>
+                            <span><i class="far fa-calendar-alt"></i> Starts: 5th Feb</span>
+                        </div>
+                        <div class="course-price">₹12,000</div>
+                        <button class="btn btn-enroll">Enroll Now</button>
+                    </div>
+                </div>
+                
+                <!-- Course 6 -->
+                <div class="course-card" data-category="online free">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="course-content">
+                        <span class="course-category">Free</span>
+                        <h3 class="course-title">Introduction to Indian Polity</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 2 Weeks</span>
+                            <span><i class="far fa-calendar-alt"></i> Starts: 10th Jan</span>
+                        </div>
+                        <div class="course-price free">Free</div>
+                        <button class="btn btn-enroll">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Panel -->
+    <section id="admin">
+        <div class="container">
+            <h2 class="section-title">Admin Control Panel</h2>
+            
+            <div class="admin-panel">
+                <div class="admin-header">
+                    <h3>Website Management</h3>
+                    <button class="btn btn-register">Logout</button>
+                </div>
+                
+                <div class="admin-tabs">
+                    <div class="admin-tab active" data-tab="courses">Manage Courses</div>
+                    <div class="admin-tab" data-tab="students">Student Management</div>
+                    <div class="admin-tab" data-tab="content">Upload Content</div>
+                    <div class="admin-tab" data-tab="settings">Settings</div>
+                </div>
+                
+                <div class="admin-content">
+                    <!-- Courses Management Tab -->
+                    <div id="courses-tab" class="tab-content active">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                            <h4>All Courses</h4>
+                            <button class="btn btn-register">Add New Course</button>
+                        </div>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Course Name</th>
+                                    <th>Type</th>
+                                    <th>Price</th>
+                                    <th>Duration</th>
+                                    <th>Start Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>UPSC Prelims + Mains Comprehensive Course</td>
+                                    <td>Online</td>
+                                    <td>₹45,000</td>
+                                    <td>12 Months</td>
+                                    <td>15th Jan 2024</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                    <td>
+                                        <button class="btn" style="padding: 5px 10px; margin-right: 5px;">Edit</button>
+                                        <button class="btn" style="padding: 5px 10px; background-color: var(--danger); color: white;">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>State PSC Foundation Course</td>
+                                    <td>Offline</td>
+                                    <td>₹32,000</td>
+                                    <td>9 Months</td>
+                                    <td>1st Feb 2024</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                    <td>
+                                        <button class="btn" style="padding: 5px 10px; margin-right: 5px;">Edit</button>
+                                        <button class="btn" style="padding: 5px 10px; background-color: var(--danger); color: white;">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Current Affairs Weekly Update</td>
+                                    <td>Free</td>
+                                    <td>Free</td>
+                                    <td>Ongoing</td>
+                                    <td>Every Monday</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                    <td>
+                                        <button class="btn" style="padding: 5px 10px; margin-right: 5px;">Edit</button>
+                                        <button class="btn" style="padding: 5px 10px; background-color: var(--danger); color: white;">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Student Management Tab -->
+                    <div id="students-tab" class="tab-content">
+                        <h4>Student Management</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Enrolled Courses</th>
+                                    <th>Join Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ECS001</td>
+                                    <td>Rahul Sharma</td>
+                                    <td>rahul.sharma@example.com</td>
+                                    <td>2</td>
+                                    <td>15th Nov 2023</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                    <td>
+                                        <button class="btn" style="padding: 5px 10px;">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ECS002</td>
+                                    <td>Priya Singh</td>
+                                    <td>priya.singh@example.com</td>
+                                    <td>1</td>
+                                    <td>20th Nov 2023</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                    <td>
+                                        <button class="btn" style="padding: 5px 10px;">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ECS003</td>
+                                    <td>Amit Kumar</td>
+                                    <td>amit.kumar@example.com</td>
+                                    <td>3</td>
+                                    <td>5th Dec 2023</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                    <td>
+                                        <button class="btn" style="padding: 5px 10px;">View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Content Upload Tab -->
+                    <div id="content-tab" class="tab-content">
+                        <h4>Upload Course Content</h4>
+                        <div class="form-group">
+                            <label for="course-select">Select Course</label>
+                            <select id="course-select" class="form-control">
+                                <option value="">-- Select Course --</option>
+                                <option value="1">UPSC Prelims + Mains Comprehensive Course</option>
+                                <option value="2">State PSC Foundation Course</option>
+                                <option value="3">Optional Subject: Political Science</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="content-title">Content Title</label>
+                            <input type="text" id="content-title" class="form-control" placeholder="Enter content title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="content-type">Content Type</label>
+                            <select id="content-type" class="form-control">
+                                <option value="video">Video Lecture</option>
+                                <option value="pdf">PDF Document</option>
+                                <option value="quiz">Quiz/Test</option>
+                                <option value="assignment">Assignment</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="content-file">Upload File</label>
+                            <input type="file" id="content-file" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="content-description">Description</label>
+                            <textarea id="content-description" class="form-control" rows="4" placeholder="Enter content description"></textarea>
+                        </div>
+                        
+                        <button class="btn btn-register">Upload Content</button>
+                    </div>
+                    
+                    <!-- Settings Tab -->
+                    <div id="settings-tab" class="tab-content">
+                        <h4>Website Settings</h4>
+                        <div class="form-group">
+                            <label for="institute-name">Institute Name</label>
+                            <input type="text" id="institute-name" class="form-control" value="Elite Civil Services Academy">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="institute-email">Contact Email</label>
+                            <input type="email" id="institute-email" class="form-control" value="contact@elitecivils.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="institute-phone">Contact Phone</label>
+                            <input type="text" id="institute-phone" class="form-control" value="+91 9876543210">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="institute-address">Address</label>
+                            <textarea id="institute-address" class="form-control" rows="3">123 Education Street, Knowledge City, India - 110001</textarea>
+                        </div>
+                        
+                        <button class="btn btn-register">Save Settings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student LMS -->
+    <section id="lms">
+        <div class="container">
+            <h2 class="section-title">Student Learning Management System</h2>
+            
+            <div class="lms-container">
+                <div class="lms-sidebar">
+                    <h4>My Courses</h4>
+                    <ul class="lms-course-list">
+                        <li class="active">UPSC Prelims + Mains Comprehensive Course</li>
+                        <li>Current Affairs Weekly Update</li>
+                        <li>Introduction to Indian Polity</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 30px;">Course Progress</h4>
+                    <div style="margin-top: 15px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>UPSC Course</span>
+                            <span>65%</span>
+                        </div>
+                        <div style="height: 8px; background-color: #eee; border-radius: 4px; margin-top: 5px;">
+                            <div style="height: 100%; width: 65%; background-color: var(--success); border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 15px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Indian Polity</span>
+                            <span>30%</span>
+                        </div>
+                        <div style="height: 8px; background-color: #eee; border-radius: 4px; margin-top: 5px;">
+                            <div style="height: 100%; width: 30%; background-color: var(--warning); border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lms-content">
+                    <h3>UPSC Prelims + Mains Comprehensive Course</h3>
+                    
+                    <div class="video-player">
+                        <i class="fas fa-play-circle" style="font-size: 60px; color: var(--secondary);"></i>
+                    </div>
+                    
+                    <h4 class="video-title">Indian Constitution - Fundamental Rights</h4>
+                    <p class="video-description">
+                        In this lecture, we will cover the Fundamental Rights enshrined in the Indian Constitution. 
+                        We'll discuss Articles 12 to 35, the significance of each right, important Supreme Court 
+                        judgments related to fundamental rights, and how these rights have evolved over time.
+                    </p>
+                    
+                    <div style="margin-top: 30px;">
+                        <h4>Course Materials</h4>
+                        <ul style="list-style: none; margin-top: 15px;">
+                            <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
+                                <i class="far fa-file-pdf" style="color: var(--danger); margin-right: 10px;"></i>
+                                <a href="#" style="text-decoration: none; color: var(--primary);">Fundamental Rights - Study Material.pdf</a>
+                            </li>
+                            <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
+                                <i class="far fa-file-alt" style="color: var(--info); margin-right: 10px;"></i>
+                                <a href="#" style="text-decoration: none; color: var(--primary);">Practice Questions - Fundamental Rights</a>
+                            </li>
+                            <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
+                                <i class="far fa-file-video" style="color: var(--success); margin-right: 10px;"></i>
+                                <a href="#" style="text-decoration: none; color: var(--primary);">Previous Year Questions Discussion</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Elite Civil Services Academy</h3>
+                    <p>Your trusted partner in civil services preparation. We provide comprehensive coaching, updated study material, and personalized guidance to help you achieve your dreams.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Education Street, Knowledge City, India</li>
+                        <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                        <li><i class="fas fa-envelope"></i> contact@elitecivils.com</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <div style="display: flex; gap: 15px; margin-top: 15px;">
+                        <a href="#" style="color: white; font-size: 20px;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: white; font-size: 20px;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: white; font-size: 20px;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: white; font-size: 20px;"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 Elite Civil Services Academy. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Course Filtering
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                const courses = document.querySelectorAll('.course-card');
+                
+                courses.forEach(course => {
+                    if (filter === 'all' || course.getAttribute('data-category').includes(filter)) {
+                        course.style.display = 'block';
+                    } else {
+                        course.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Admin Tabs
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                document.querySelectorAll('.admin-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                const tabId = tab.getAttribute('data-tab');
+                const tabContents = document.querySelectorAll('.tab-content');
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+        
+        // LMS Course Selection
+        document.querySelectorAll('.lms-course-list li').forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active class from all items
+                document.querySelectorAll('.lms-course-list li').forEach(li => {
+                    li.classList.remove('active');
+                });
+                
+                // Add active class to clicked item
+                item.classList.add('active');
+            });
+        });
+        
+        // Login/Register buttons
+        document.getElementById('loginBtn').addEventListener('click', () => {
+            alert('Login functionality would be implemented here');
+        });
+        
+        document.getElementById('registerBtn').addEventListener('click', () => {
+            alert('Registration functionality would be implemented here');
+        });
+        
+        // Enroll buttons
+        document.querySelectorAll('.btn-enroll').forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Course enrollment functionality would be implemented here');
+            });
+        });
+    </script>
+</body>
+</html>
