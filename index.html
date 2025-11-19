@@ -27,6 +27,7 @@
         body {
             background-color: #f5f5f5;
             color: var(--dark);
+            scroll-behavior: smooth;
         }
         
         .container {
@@ -42,6 +43,9 @@
             color: white;
             padding: 15px 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .header-container {
@@ -79,6 +83,7 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            cursor: pointer;
         }
         
         nav ul li a:hover {
@@ -254,6 +259,175 @@
             padding: 10px;
         }
         
+        /* About Section */
+        .about {
+            background-color: white;
+            padding: 80px 0;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .about-features {
+            list-style: none;
+            margin-top: 30px;
+        }
+        
+        .about-features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .about-features li i {
+            color: var(--secondary);
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        .about-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: #f8f9fa;
+            padding: 80px 0;
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .contact-details {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .contact-details li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .contact-details li i {
+            color: var(--secondary);
+            margin-right: 10px;
+            margin-top: 5px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .contact-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-form h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .btn-submit {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            font-size: 16px;
+            width: 100%;
+        }
+        
+        .btn-submit:hover {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+        
         /* Admin Panel */
         .admin-panel {
             background-color: white;
@@ -292,24 +466,6 @@
         
         .admin-content {
             min-height: 400px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
         }
         
         .table {
@@ -610,6 +766,12 @@
             
             nav ul {
                 margin: 20px 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
             }
             
             .lms-container, .dashboard-container {
@@ -618,6 +780,14 @@
             
             .courses-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .about-content, .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .auth-buttons {
+                margin-top: 15px;
             }
         }
     </style>
@@ -652,7 +822,7 @@
         <div class="container">
             <h2>Your Pathway to Civil Services Excellence</h2>
             <p>Comprehensive coaching for UPSC, State PSC, and other civil services examinations with expert faculty, updated study material, and personalized guidance.</p>
-            <button class="btn btn-hero">Explore Our Courses</button>
+            <button class="btn btn-hero" id="exploreCoursesBtn">Explore Our Courses</button>
         </div>
     </section>
 
@@ -670,6 +840,112 @@
             
             <div class="courses-grid" id="coursesContainer">
                 <!-- Courses will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Your Success Is Our Mission</h2>
+                    <p>Elite Civil Services Academy was established with a vision to empower aspirants with quality education and comprehensive guidance for civil services examinations. Our institute has been a trusted name in the field of competitive exam coaching for over a decade.</p>
+                    <p>We believe in a holistic approach to civil services preparation that combines expert faculty, updated study material, personalized mentoring, and a supportive learning environment.</p>
+                    
+                    <ul class="about-features">
+                        <li><i class="fas fa-check-circle"></i> Experienced faculty with proven track record</li>
+                        <li><i class="fas fa-check-circle"></i> Comprehensive and updated study material</li>
+                        <li><i class="fas fa-check-circle"></i> Personalized mentoring and doubt clearing sessions</li>
+                        <li><i class="fas fa-check-circle"></i> Regular mock tests and performance analysis</li>
+                        <li><i class="fas fa-check-circle"></i> Both online and offline learning options</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Elite Civil Services Academy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p>Have questions about our courses or need guidance for your civil services preparation? We're here to help you achieve your dreams.</p>
+                    
+                    <ul class="contact-details">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Address</strong><br>
+                                123 Education Street, Knowledge City<br>
+                                New Delhi, India - 110001
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +91 9876543210
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong><br>
+                                contact@elitecivils.com
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>Office Hours</strong><br>
+                                Monday - Saturday: 9:00 AM - 6:00 PM
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" placeholder="Enter subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" placeholder="Enter your message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-submit">Send Message</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -1226,11 +1502,14 @@
         const studentLMS = document.getElementById('studentLMS');
         const studentName = document.getElementById('studentName');
         const studentEmail = document.getElementById('studentEmail');
+        const exploreCoursesBtn = document.getElementById('exploreCoursesBtn');
+        const contactForm = document.getElementById('contactForm');
         
         // Initialize the application
         function init() {
             renderCourses();
             updateUI();
+            setupNavigation();
             
             if (isAdmin && currentUser) {
                 showAdminPanel();
@@ -1239,6 +1518,50 @@
             } else if (currentUser) {
                 showStudentDashboard();
                 renderEnrolledCourses();
+            }
+        }
+        
+        // Setup navigation
+        function setupNavigation() {
+            // Navigation links
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    scrollToSection(targetId);
+                });
+            });
+            
+            // Explore Courses button
+            exploreCoursesBtn.addEventListener('click', function() {
+                scrollToSection('courses');
+            });
+            
+            // Footer links
+            document.querySelectorAll('.footer-links a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    scrollToSection(targetId);
+                });
+            });
+            
+            // Contact form submission
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                this.reset();
+            });
+        }
+        
+        // Scroll to section smoothly
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                window.scrollTo({
+                    top: section.offsetTop - 80,
+                    behavior: 'smooth'
+                });
             }
         }
         
