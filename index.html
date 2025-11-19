@@ -430,11 +430,65 @@
         
         /* Admin Panel */
         .admin-panel {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 0;
+            min-height: 100vh;
+        }
+        
+        .admin-sidebar {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px 0;
+        }
+        
+        .admin-sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .admin-sidebar-header h3 {
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-sidebar-header i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .admin-nav {
+            list-style: none;
+        }
+        
+        .admin-nav li {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-nav li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .admin-nav li.active {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+        
+        .admin-nav li i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .admin-content {
+            background-color: #f8f9fa;
             padding: 30px;
-            margin-bottom: 50px;
+            overflow-y: auto;
         }
         
         .admin-header {
@@ -446,26 +500,18 @@
             border-bottom: 1px solid #eee;
         }
         
-        .admin-tabs {
-            display: flex;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 20px;
+        .admin-page {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
         }
         
-        .admin-tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-        }
-        
-        .admin-tab.active {
-            border-bottom: 2px solid var(--primary);
+        .admin-page h3 {
             color: var(--primary);
-            font-weight: 500;
-        }
-        
-        .admin-content {
-            min-height: 400px;
+            margin-bottom: 20px;
+            font-size: 22px;
         }
         
         .table {
@@ -789,6 +835,14 @@
             .auth-buttons {
                 margin-top: 15px;
             }
+            
+            .admin-panel {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-sidebar {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -883,7 +937,8 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <div>
                                 <strong>Address</strong><br>
-                                Fraser Road,Patna,800001
+                                Fraser Road ,Patna<br>
+                                Bihar,800001
                             </div>
                         </li>
                         <li>
@@ -951,132 +1006,161 @@
 
     <!-- Admin Panel (Initially Hidden) -->
     <section id="admin" style="display: none;">
-        <div class="container">
-            <h2 class="section-title">Admin Control Panel</h2>
-            
-            <div class="admin-panel">
+        <div class="admin-panel">
+            <div class="admin-sidebar">
+                <div class="admin-sidebar-header">
+                    <h3><i class="fas fa-cogs"></i> Admin Panel</h3>
+                </div>
+                <ul class="admin-nav">
+                    <li class="active" data-page="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+                    <li data-page="manage-courses"><i class="fas fa-book"></i> Manage Courses</li>
+                    <li data-page="students-management"><i class="fas fa-users"></i> Students Management</li>
+                    <li data-page="upload-content"><i class="fas fa-upload"></i> Upload Content</li>
+                    <li data-page="settings"><i class="fas fa-cog"></i> Settings</li>
+                </ul>
+            </div>
+            <div class="admin-content">
                 <div class="admin-header">
-                    <h3>Website Management</h3>
+                    <h2>Admin Dashboard</h2>
                     <button class="btn btn-register" id="adminLogoutBtn">Logout</button>
                 </div>
                 
-                <div class="admin-tabs">
-                    <div class="admin-tab active" data-tab="courses">Manage Courses</div>
-                    <div class="admin-tab" data-tab="students">Student Management</div>
-                    <div class="admin-tab" data-tab="content">Upload Content</div>
-                    <div class="admin-tab" data-tab="settings">Settings</div>
+                <!-- Dashboard Page -->
+                <div id="dashboard-page" class="admin-page active">
+                    <h3>Dashboard Overview</h3>
+                    <div class="courses-grid">
+                        <div class="course-card">
+                            <div class="course-content">
+                                <h3 class="course-title">Total Courses</h3>
+                                <div class="course-price" id="totalCourses">0</div>
+                                <p>Active courses in the system</p>
+                            </div>
+                        </div>
+                        <div class="course-card">
+                            <div class="course-content">
+                                <h3 class="course-title">Total Students</h3>
+                                <div class="course-price" id="totalStudents">0</div>
+                                <p>Registered students</p>
+                            </div>
+                        </div>
+                        <div class="course-card">
+                            <div class="course-content">
+                                <h3 class="course-title">Total Enrollments</h3>
+                                <div class="course-price" id="totalEnrollments">0</div>
+                                <p>Course enrollments</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="admin-content">
-                    <!-- Courses Management Tab -->
-                    <div id="courses-tab" class="tab-content active">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                            <h4>All Courses</h4>
-                            <button class="btn btn-register" id="addCourseBtn">Add New Course</button>
-                        </div>
-                        
-                        <table class="table" id="coursesTable">
-                            <thead>
-                                <tr>
-                                    <th>Course Name</th>
-                                    <th>Type</th>
-                                    <th>Price</th>
-                                    <th>Duration</th>
-                                    <th>Start Date</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="coursesTableBody">
-                                <!-- Courses will be dynamically loaded here -->
-                            </tbody>
-                        </table>
+                <!-- Manage Courses Page -->
+                <div id="manage-courses-page" class="admin-page">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                        <h3>Manage Courses</h3>
+                        <button class="btn btn-register" id="addCourseBtn">Add New Course</button>
                     </div>
                     
-                    <!-- Student Management Tab -->
-                    <div id="students-tab" class="tab-content">
-                        <h4>Student Management</h4>
-                        <table class="table" id="studentsTable">
-                            <thead>
-                                <tr>
-                                    <th>Student ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Enrolled Courses</th>
-                                    <th>Join Date</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="studentsTableBody">
-                                <!-- Students will be dynamically loaded here -->
-                            </tbody>
-                        </table>
+                    <table class="table" id="coursesTable">
+                        <thead>
+                            <tr>
+                                <th>Course Name</th>
+                                <th>Type</th>
+                                <th>Price</th>
+                                <th>Duration</th>
+                                <th>Start Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="coursesTableBody">
+                            <!-- Courses will be dynamically loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Students Management Page -->
+                <div id="students-management-page" class="admin-page">
+                    <h3>Student Management</h3>
+                    <table class="table" id="studentsTable">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Enrolled Courses</th>
+                                <th>Join Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <!-- Students will be dynamically loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Upload Content Page -->
+                <div id="upload-content-page" class="admin-page">
+                    <h3>Upload Course Content</h3>
+                    <div class="form-group">
+                        <label for="course-select">Select Course</label>
+                        <select id="course-select" class="form-control">
+                            <option value="">-- Select Course --</option>
+                        </select>
                     </div>
                     
-                    <!-- Content Upload Tab -->
-                    <div id="content-tab" class="tab-content">
-                        <h4>Upload Course Content</h4>
-                        <div class="form-group">
-                            <label for="course-select">Select Course</label>
-                            <select id="course-select" class="form-control">
-                                <option value="">-- Select Course --</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="content-title">Content Title</label>
-                            <input type="text" id="content-title" class="form-control" placeholder="Enter content title">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="content-type">Content Type</label>
-                            <select id="content-type" class="form-control">
-                                <option value="video">Video Lecture</option>
-                                <option value="pdf">PDF Document</option>
-                                <option value="quiz">Quiz/Test</option>
-                                <option value="assignment">Assignment</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="content-file">Upload File</label>
-                            <input type="file" id="content-file" class="form-control">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="content-description">Description</label>
-                            <textarea id="content-description" class="form-control" rows="4" placeholder="Enter content description"></textarea>
-                        </div>
-                        
-                        <button class="btn btn-register" id="uploadContentBtn">Upload Content</button>
+                    <div class="form-group">
+                        <label for="content-title">Content Title</label>
+                        <input type="text" id="content-title" class="form-control" placeholder="Enter content title">
                     </div>
                     
-                    <!-- Settings Tab -->
-                    <div id="settings-tab" class="tab-content">
-                        <h4>Website Settings</h4>
-                        <div class="form-group">
-                            <label for="institute-name">Institute Name</label>
-                            <input type="text" id="institute-name" class="form-control" value="Elite Civil Services Academy">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="institute-email">Contact Email</label>
-                            <input type="email" id="institute-email" class="form-control" value="contact@elitecivils.com">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="institute-phone">Contact Phone</label>
-                            <input type="text" id="institute-phone" class="form-control" value="+91 9876543210">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="institute-address">Address</label>
-                            <textarea id="institute-address" class="form-control" rows="3">123 Education Street, Knowledge City, India - 110001</textarea>
-                        </div>
-                        
-                        <button class="btn btn-register" id="saveSettingsBtn">Save Settings</button>
+                    <div class="form-group">
+                        <label for="content-type">Content Type</label>
+                        <select id="content-type" class="form-control">
+                            <option value="video">Video Lecture</option>
+                            <option value="pdf">PDF Document</option>
+                            <option value="quiz">Quiz/Test</option>
+                            <option value="assignment">Assignment</option>
+                        </select>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="content-file">Upload File</label>
+                        <input type="file" id="content-file" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="content-description">Description</label>
+                        <textarea id="content-description" class="form-control" rows="4" placeholder="Enter content description"></textarea>
+                    </div>
+                    
+                    <button class="btn btn-register" id="uploadContentBtn">Upload Content</button>
+                </div>
+                
+                <!-- Settings Page -->
+                <div id="settings-page" class="admin-page">
+                    <h3>Website Settings</h3>
+                    <div class="form-group">
+                        <label for="institute-name">Institute Name</label>
+                        <input type="text" id="institute-name" class="form-control" value="Elite Civil Services Academy">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="institute-email">Contact Email</label>
+                        <input type="email" id="institute-email" class="form-control" value="contact@elitecivils.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="institute-phone">Contact Phone</label>
+                        <input type="text" id="institute-phone" class="form-control" value="+91 9876543210">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="institute-address">Address</label>
+                        <textarea id="institute-address" class="form-control" rows="3">123 Education Street, Knowledge City, India - 110001</textarea>
+                    </div>
+                    
+                    <button class="btn btn-register" id="saveSettingsBtn">Save Settings</button>
                 </div>
             </div>
         </div>
@@ -1101,6 +1185,7 @@
                     
                     <ul class="dashboard-nav">
                         <li class="active" data-tab="my-courses"><i class="fas fa-book"></i> My Courses</li>
+                        <li data-tab="all-courses"><i class="fas fa-graduation-cap"></i> All Courses</li>
                         <li data-tab="progress"><i class="fas fa-chart-line"></i> Progress</li>
                         <li data-tab="resources"><i class="fas fa-file-alt"></i> Resources</li>
                         <li data-tab="profile"><i class="fas fa-user-cog"></i> Profile</li>
@@ -1113,6 +1198,14 @@
                         <h3>My Enrolled Courses</h3>
                         <div class="courses-grid" id="enrolledCoursesContainer">
                             <!-- Enrolled courses will be dynamically loaded here -->
+                        </div>
+                    </div>
+                    
+                    <!-- All Courses Tab -->
+                    <div id="all-courses-tab" class="tab-content">
+                        <h3>All Available Courses</h3>
+                        <div class="courses-grid" id="allCoursesContainer">
+                            <!-- All courses will be dynamically loaded here -->
                         </div>
                     </div>
                     
@@ -1259,7 +1352,7 @@
                 <div class="footer-column">
                     <h3>Contact Us</h3>
                     <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i>Fraser Road,Patna,800001</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Fraser Road, Patna,Bihar,800001</li>
                         <li><i class="fas fa-phone"></i> +91 9876543210</li>
                         <li><i class="fas fa-envelope"></i> contact@elitecivils.com</li>
                     </ul>
@@ -1343,7 +1436,7 @@
     <div class="modal" id="addCourseModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Add New Course</h3>
+                <h3 id="courseModalTitle">Add New Course</h3>
                 <button class="close-modal">&times;</button>
             </div>
             <div class="form-group">
@@ -1389,6 +1482,7 @@
         let enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses')) || [];
         let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
         let isAdmin = localStorage.getItem('isAdmin') === 'true' || false;
+        let editingCourseId = null;
         
         // Default admin user
         if (!users.find(user => user.email === 'admin@elitecivils.com')) {
@@ -1496,6 +1590,7 @@
         const coursesTableBody = document.getElementById('coursesTableBody');
         const studentsTableBody = document.getElementById('studentsTableBody');
         const enrolledCoursesContainer = document.getElementById('enrolledCoursesContainer');
+        const allCoursesContainer = document.getElementById('allCoursesContainer');
         const adminSection = document.getElementById('admin');
         const studentDashboard = document.getElementById('studentDashboard');
         const studentLMS = document.getElementById('studentLMS');
@@ -1503,12 +1598,17 @@
         const studentEmail = document.getElementById('studentEmail');
         const exploreCoursesBtn = document.getElementById('exploreCoursesBtn');
         const contactForm = document.getElementById('contactForm');
+        const courseModalTitle = document.getElementById('courseModalTitle');
+        const totalCourses = document.getElementById('totalCourses');
+        const totalStudents = document.getElementById('totalStudents');
+        const totalEnrollments = document.getElementById('totalEnrollments');
         
         // Initialize the application
         function init() {
             renderCourses();
             updateUI();
             setupNavigation();
+            updateAdminDashboard();
             
             if (isAdmin && currentUser) {
                 showAdminPanel();
@@ -1517,6 +1617,7 @@
             } else if (currentUser) {
                 showStudentDashboard();
                 renderEnrolledCourses();
+                renderAllCourses();
             }
         }
         
@@ -1551,6 +1652,50 @@
                 alert('Thank you for your message! We will get back to you soon.');
                 this.reset();
             });
+            
+            // Admin sidebar navigation
+            document.querySelectorAll('.admin-nav li').forEach(item => {
+                item.addEventListener('click', function() {
+                    const page = this.getAttribute('data-page');
+                    showAdminPage(page);
+                    
+                    // Update active state
+                    document.querySelectorAll('.admin-nav li').forEach(li => {
+                        li.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+            
+            // Student dashboard navigation
+            document.querySelectorAll('.dashboard-nav li').forEach(item => {
+                item.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    showStudentTab(tab);
+                    
+                    // Update active state
+                    document.querySelectorAll('.dashboard-nav li').forEach(li => {
+                        li.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+        }
+        
+        // Show admin page
+        function showAdminPage(page) {
+            document.querySelectorAll('.admin-page').forEach(p => {
+                p.classList.remove('active');
+            });
+            document.getElementById(`${page}-page`).classList.add('active');
+        }
+        
+        // Show student tab
+        function showStudentTab(tab) {
+            document.querySelectorAll('.dashboard-content .tab-content').forEach(t => {
+                t.classList.remove('active');
+            });
+            document.getElementById(`${tab}-tab`).classList.add('active');
         }
         
         // Scroll to section smoothly
@@ -1569,38 +1714,52 @@
             coursesContainer.innerHTML = '';
             
             courses.filter(course => course.status === 'active').forEach(course => {
-                const courseCard = document.createElement('div');
-                courseCard.className = 'course-card';
-                courseCard.setAttribute('data-category', course.type);
-                
-                const priceDisplay = course.price === 0 ? 
-                    `<div class="course-price free">Free</div>` : 
-                    `<div class="course-price">₹${course.price.toLocaleString()}</div>`;
-                
-                courseCard.innerHTML = `
-                    <div class="course-img" style="background-image: url('${course.image}');"></div>
-                    <div class="course-content">
-                        <span class="course-category">${course.type.charAt(0).toUpperCase() + course.type.slice(1)}</span>
-                        <h3 class="course-title">${course.name}</h3>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> ${course.duration}</span>
-                            <span><i class="far fa-calendar-alt"></i> Starts: ${formatDate(course.startDate)}</span>
-                        </div>
-                        ${priceDisplay}
-                        <button class="btn btn-enroll" data-course-id="${course.id}">Enroll Now</button>
-                    </div>
-                `;
-                
-                coursesContainer.appendChild(courseCard);
+                coursesContainer.appendChild(createCourseCard(course, false));
             });
+        }
+        
+        // Render all courses in student dashboard
+        function renderAllCourses() {
+            allCoursesContainer.innerHTML = '';
             
-            // Add event listeners to enroll buttons
-            document.querySelectorAll('.btn-enroll').forEach(button => {
-                button.addEventListener('click', function() {
-                    const courseId = parseInt(this.getAttribute('data-course-id'));
-                    enrollInCourse(courseId);
-                });
+            courses.filter(course => course.status === 'active').forEach(course => {
+                allCoursesContainer.appendChild(createCourseCard(course, true));
             });
+        }
+        
+        // Create course card element
+        function createCourseCard(course, isStudentView = false) {
+            const courseCard = document.createElement('div');
+            courseCard.className = 'course-card';
+            courseCard.setAttribute('data-category', course.type);
+            
+            const priceDisplay = course.price === 0 ? 
+                `<div class="course-price free">Free</div>` : 
+                `<div class="course-price">₹${course.price.toLocaleString()}</div>`;
+            
+            // Check if user is enrolled in this course
+            const isEnrolled = currentUser && enrolledCourses.some(
+                enrollment => enrollment.userId === currentUser.id && enrollment.courseId === course.id
+            );
+            
+            const buttonText = isEnrolled ? 'Access Course' : 'Enroll Now';
+            const buttonAction = isEnrolled ? `accessCourse(${course.id})` : `enrollInCourse(${course.id})`;
+            
+            courseCard.innerHTML = `
+                <div class="course-img" style="background-image: url('${course.image}');"></div>
+                <div class="course-content">
+                    <span class="course-category">${course.type.charAt(0).toUpperCase() + course.type.slice(1)}</span>
+                    <h3 class="course-title">${course.name}</h3>
+                    <div class="course-meta">
+                        <span><i class="far fa-clock"></i> ${course.duration}</span>
+                        <span><i class="far fa-calendar-alt"></i> Starts: ${formatDate(course.startDate)}</span>
+                    </div>
+                    ${priceDisplay}
+                    <button class="btn btn-enroll" onclick="${buttonAction}">${buttonText}</button>
+                </div>
+            `;
+            
+            return courseCard;
         }
         
         // Render courses in admin panel
@@ -1706,20 +1865,19 @@
                             <span><i class="far fa-calendar-alt"></i> Started: ${formatDate(enrollment.enrollmentDate)}</span>
                         </div>
                         ${priceDisplay}
-                        <button class="btn btn-enroll" data-course-id="${course.id}">Access Course</button>
+                        <button class="btn btn-enroll" onclick="accessCourse(${course.id})">Access Course</button>
                     </div>
                 `;
                 
                 enrolledCoursesContainer.appendChild(courseCard);
             });
-            
-            // Add event listeners to access course buttons
-            document.querySelectorAll('.btn-enroll').forEach(button => {
-                button.addEventListener('click', function() {
-                    const courseId = parseInt(this.getAttribute('data-course-id'));
-                    accessCourse(courseId);
-                });
-            });
+        }
+        
+        // Update admin dashboard stats
+        function updateAdminDashboard() {
+            totalCourses.textContent = courses.length;
+            totalStudents.textContent = users.filter(user => user.role !== 'admin').length;
+            totalEnrollments.textContent = enrolledCourses.length;
         }
         
         // Format date for display
@@ -1819,8 +1977,10 @@
             
             if (isAdmin) {
                 renderAdminStudents();
+                updateAdminDashboard();
             } else {
                 renderEnrolledCourses();
+                renderAllCourses();
             }
         }
         
@@ -1909,32 +2069,77 @@
                 return;
             }
             
-            const newCourse = {
-                id: courses.length + 1,
-                name,
-                description,
-                type,
-                price,
-                duration,
-                startDate,
-                image: image || 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-                status: 'active'
-            };
+            if (editingCourseId) {
+                // Update existing course
+                const courseIndex = courses.findIndex(c => c.id === editingCourseId);
+                if (courseIndex !== -1) {
+                    courses[courseIndex] = {
+                        ...courses[courseIndex],
+                        name,
+                        description,
+                        type,
+                        price,
+                        duration,
+                        startDate,
+                        image: image || courses[courseIndex].image
+                    };
+                }
+                editingCourseId = null;
+            } else {
+                // Add new course
+                const newCourse = {
+                    id: courses.length + 1,
+                    name,
+                    description,
+                    type,
+                    price,
+                    duration,
+                    startDate,
+                    image: image || 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+                    status: 'active'
+                };
+                
+                courses.push(newCourse);
+            }
             
-            courses.push(newCourse);
             localStorage.setItem('courses', JSON.stringify(courses));
             
             renderCourses();
             renderAdminCourses();
+            updateAdminDashboard();
             
             addCourseModal.style.display = 'none';
-            alert('Course added successfully!');
+            alert(editingCourseId ? 'Course updated successfully!' : 'Course added successfully!');
+            
+            // Reset form
+            document.getElementById('course-name').value = '';
+            document.getElementById('course-description').value = '';
+            document.getElementById('course-type').value = 'online';
+            document.getElementById('course-price').value = '';
+            document.getElementById('course-duration').value = '';
+            document.getElementById('course-start').value = '';
+            document.getElementById('course-image').value = '';
+            
+            courseModalTitle.textContent = 'Add New Course';
         }
         
         // Edit a course
         function editCourse(courseId) {
-            // In a real application, you would populate a form with course data
-            alert('Edit course functionality would be implemented here');
+            const course = courses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            // Populate form with course data
+            document.getElementById('course-name').value = course.name;
+            document.getElementById('course-description').value = course.description;
+            document.getElementById('course-type').value = course.type;
+            document.getElementById('course-price').value = course.price;
+            document.getElementById('course-duration').value = course.duration;
+            document.getElementById('course-start').value = course.startDate;
+            document.getElementById('course-image').value = course.image;
+            
+            editingCourseId = courseId;
+            courseModalTitle.textContent = 'Edit Course';
+            addCourseModal.style.display = 'flex';
         }
         
         // Delete a course
@@ -1947,6 +2152,7 @@
                     
                     renderCourses();
                     renderAdminCourses();
+                    updateAdminDashboard();
                     alert('Course deleted successfully!');
                 }
             }
@@ -1992,6 +2198,8 @@
                 loginModal.style.display = 'none';
                 registerModal.style.display = 'none';
                 addCourseModal.style.display = 'none';
+                editingCourseId = null;
+                courseModalTitle.textContent = 'Add New Course';
             });
         });
         
@@ -2033,9 +2241,11 @@
                     showAdminPanel();
                     renderAdminCourses();
                     renderAdminStudents();
+                    updateAdminDashboard();
                 } else {
                     showStudentDashboard();
                     renderEnrolledCourses();
+                    renderAllCourses();
                 }
                 
                 alert('Login successful!');
@@ -2082,6 +2292,8 @@
         });
         
         addCourseBtn.addEventListener('click', () => {
+            editingCourseId = null;
+            courseModalTitle.textContent = 'Add New Course';
             addCourseModal.style.display = 'flex';
         });
         
@@ -2108,50 +2320,6 @@
                         course.style.display = 'none';
                     }
                 });
-            });
-        });
-        
-        // Admin tabs
-        document.querySelectorAll('.admin-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all tabs
-                document.querySelectorAll('.admin-tab').forEach(t => {
-                    t.classList.remove('active');
-                });
-                
-                // Add active class to clicked tab
-                tab.classList.add('active');
-                
-                const tabId = tab.getAttribute('data-tab');
-                const tabContents = document.querySelectorAll('.tab-content');
-                
-                tabContents.forEach(content => {
-                    content.classList.remove('active');
-                });
-                
-                document.getElementById(`${tabId}-tab`).classList.add('active');
-            });
-        });
-        
-        // Student dashboard tabs
-        document.querySelectorAll('.dashboard-nav li').forEach(item => {
-            item.addEventListener('click', () => {
-                // Remove active class from all items
-                document.querySelectorAll('.dashboard-nav li').forEach(li => {
-                    li.classList.remove('active');
-                });
-                
-                // Add active class to clicked item
-                item.classList.add('active');
-                
-                const tabId = item.getAttribute('data-tab');
-                const tabContents = document.querySelectorAll('.dashboard-content .tab-content');
-                
-                tabContents.forEach(content => {
-                    content.classList.remove('active');
-                });
-                
-                document.getElementById(`${tabId}-tab`).classList.add('active');
             });
         });
         
